@@ -81,13 +81,48 @@ button {
 <script>
     $(function () {
         var socket = io();
-        $('form').submit(function(e){
-            e.preventDefault(); // prevents page reloading
+
+        let name = 'unknown';
+        var msg = "";
+
+        const runCommand = (command) => {
+            console.log("test");
+            let commandArray = command.split(" ");
+            
+            switch(commandArray[0]){
+                case "!cname":
+                    let oldName = name;
+                    console.log(`changing to: ${commandArray[1]}`)
+                    name = commandArray[1];
+                    systemMsg(`${oldName} changed there name to ${name}`);
+                    $('#msgBox').val('');
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        const systemMsg = (text) => {
+            
             socket.emit('chat message', {
-                name: $('#name').val(),
-                msg: $('#msgBox').val()
+                name: "System",
+                msg: text
             });
-            $('#msgBox').val('');
+        }
+
+        $('form').submit(function(e){
+            msg = $('#msgBox').val();
+            
+            e.preventDefault(); // prevents page reloading
+            
+            if(!runCommand(msg)){
+                socket.emit('chat message', {
+                    name: name,
+                    msg: $('#msgBox').val()
+                });
+                $('#msgBox').val('');
+            }
+            
             return false;
         });
 
