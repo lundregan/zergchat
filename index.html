@@ -4,24 +4,91 @@
     <title>zChat</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    font: 13px Helvetica, Arial;
+}
+
+form {
+    background: grey;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+form input { 
+    border: 0; 
+    padding: 10px; 
+    width: 90%; 
+    margin-right: 0.5%; 
+}
+
+form button { 
+    width: 9%; 
+    background: rgb(130, 224, 255); 
+    border: none; 
+    padding: 10px; 
+}
+
+#msgList { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
+
+#msgList li { 
+    padding: 5px 10px; 
+}
+
+#msgList li:nth-child(odd) { 
+    background: #eee; 
+}
+
+#messageBox {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+
+#name {
+    margin: 2px;
+    width: 20%;
+}
+</style>
 
 <script>
     $(function () {
         var socket = io();
         $('form').submit(function(e){
             e.preventDefault(); // prevents page reloading
-            socket.emit('chat message', $('#m').val());
+            socket.emit('chat message', {
+                name: $('#name').val(),
+                msg: $('#m').val()
+            });
             $('#m').val('');
             return false;
         });
 
         socket.on('chat message', function(msg){
-            $('#msgList').append($('<li>').text(msg));
+            let content = `${msg.name}: ${msg.msg}`;
+            $('#msgList').append($('<li>').text(content));
         });
   });
 </script>
@@ -32,6 +99,7 @@
     </ul>
 
     <form action="">
+        <input id="name" />
         <input id="m" autocomplete="off" />
         <button> Send </button>
     </form>
