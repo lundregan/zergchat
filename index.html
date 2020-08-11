@@ -22,55 +22,60 @@ html {
 }
 
 body {
-    font: 13px Helvetica, Arial;
+    width: 100%;
+    height: 100%;
+
+    background: #212121;
+}
+
+ul :nth-child(odd) {
+    background: lightgrey;
 }
 
 form {
-    background: grey;
-    padding: 5px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
-}
 
-form input { 
-    border: 0; 
-    padding: 10px; 
-    width: 90%; 
-    margin-right: 0.5%; 
-}
-
-form button { 
-    width: 9%; 
-    background: rgb(130, 224, 255); 
-    border: none; 
-    padding: 10px; 
-}
-
-#msgList { 
-    list-style-type: none; 
-    margin: 0; 
-    padding: 0; 
-}
-
-#msgList li { 
-    padding: 5px 10px; 
-}
-
-#msgList li:nth-child(odd) { 
-    background: #eee; 
-}
-
-#messageBox {
     position: absolute;
-    bottom: 30px;
-    width: 100%;
+    display: flex;
+
+    padding: 10px;
+    bottom: 0px;
+
+    align-content: space-around;
+
+    background: #424242;
 }
 
-#name {
-    margin: 2px;
-    width: 20%;
+form div * {
+    padding: 0px;
+    margin: 0px 5px;
+    height: 40px;
 }
+
+input {
+    width: 90%;
+
+    margin-right: 10px;
+    padding: 10px 15px;
+
+    border: none;
+    border-radius: 16px;
+    background: #BDBDBD;
+}
+
+button {
+    width: 10%;
+
+    border: none;
+    border-radius: 16px;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    color: #9E9E9E;
+    background: #212121;
+}
+
 </style>
 
 <script>
@@ -80,9 +85,9 @@ form button {
             e.preventDefault(); // prevents page reloading
             socket.emit('chat message', {
                 name: $('#name').val(),
-                msg: $('#m').val()
+                msg: $('#msgBox').val()
             });
-            $('#m').val('');
+            $('#msgBox').val('');
             return false;
         });
 
@@ -99,9 +104,8 @@ form button {
     </ul>
 
     <form action="">
-        <input id="name" />
-        <input id="m" autocomplete="off" />
-        <button> Send </button>
+        <input id="msgBox" autocomplete="off" />
+        <button id="submit" autofocus> Send </button>
     </form>
 </body>
 </html>
