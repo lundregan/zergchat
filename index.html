@@ -5,148 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="style.css">
+
     <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    width: 100vw;
-    height: 100vh;
-}
-
-body {
-    width: 100%;
-    height: 100%;
-
-    background: #212121;
-}
-
-ul :nth-child(odd) {
-    background: lightgrey;
-}
-
-form {
-    width: 100%;
-
-    position: absolute;
-    display: flex;
-
-    padding: 10px;
-    bottom: 0px;
-
-    align-content: space-around;
-
-    background: #424242;
-}
-
-form div * {
-    padding: 0px;
-    margin: 0px 5px;
-    height: 40px;
-}
-
-input {
-    width: 90%;
-
-    margin-right: 10px;
-    padding: 10px 15px;
-
-    border: none;
-    border-radius: 16px;
-    background: #BDBDBD;
-}
-
-button {
-    width: 10%;
-
-    border: none;
-    border-radius: 16px;
-
-    font-size: 12px;
-    font-weight: 900;
-
-    color: #9E9E9E;
-    background: #212121;
-}
-
-</style>
-
-<script>
-    $(function () {
-        var socket = io();
-
-        let name = 'unknown';
-        var msg = "";
-
-        const changeName = (arr) => {
-            let oldName = name;
-            console.log(`changing to: ${arr[1]}`)
-            name = arr[1];
-            systemMsg(`${oldName} changed there name to ${name}`);
-            $('#msgBox').val('');
-        }
-
-        const runCommand = (command) => {
-            let commandArray = command.split(" ");
-            
-            switch(commandArray[0]){
-                case "!cname":
-                    changeName(commandArray);
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        const updateChatHistory = (history) => {
-            for(var i = 0; i < history.length; i++){
-                let content = `${history[i].name}: ${history[i].msg}`;
-                $('#msgList').append($('<li>').text(content));
-            }
-        }
-
-        const systemMsg = (text) => {
-            
-            socket.emit('chat message', {
-                name: "System",
-                msg: text
-            });
-        }
-
-        $('form').submit(function(e){
-            msg = $('#msgBox').val();
-            
-            e.preventDefault(); // prevents page reloading
-            
-            if(!runCommand(msg)){
-                socket.emit('chat message', {
-                    name: name,
-                    msg: $('#msgBox').val()
-                });
-                $('#msgBox').val('');
-            }
-            
-            return false;
-        });
-
-        socket.on('chat message', function(msg){
-            let content = `${msg.name}: ${msg.msg}`;
-            $('#msgList').append($('<li>').text(content));
-        });
-
-        socket.on('update chat history', (chatHistory) => {
-            updateChatHistory(chatHistory);
-        });
-  });
-</script>
 
 <body>
     <ul id="msgList">
@@ -157,5 +21,7 @@ button {
         <input id="msgBox" autocomplete="off" />
         <button autofocus> Send </button>
     </form>
+
+    <script src="client.js"></script>
 </body>
 </html>
