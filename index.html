@@ -106,6 +106,12 @@ button {
             }
         }
 
+        const updateChatHistory = (history) => {
+            for(var i = 0; i < history.length; i++){
+                let content = `${history[i].name}: ${history[i].msg}`;
+                $('#msgList').append($('<li>').text(content));
+            }
+        }
 
         const systemMsg = (text) => {
             
@@ -134,6 +140,10 @@ button {
         socket.on('chat message', function(msg){
             let content = `${msg.name}: ${msg.msg}`;
             $('#msgList').append($('<li>').text(content));
+        });
+
+        socket.on('update chat history', (chatHistory) => {
+            updateChatHistory(chatHistory);
         });
   });
 </script>

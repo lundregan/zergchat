@@ -6,11 +6,17 @@ var chatHistory = [
 
 ]
 
+const updateChatHistory = (msg) => {
+    chatHistory.push(msg);
+}
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
 
 io.on('connection', (socket) => {
+    socket.emit('update chat history', chatHistory);
+
     console.log('A user connected');
 
     socket.on('disconnect', () => {
@@ -20,6 +26,9 @@ io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
     
       console.log(`${msg.name} : ${msg.msg}`);
+    
+        updateChatHistory(msg);
+
       io.emit('chat message', msg);
     });
 });
