@@ -86,21 +86,26 @@ button {
         let name = 'unknown';
         var msg = "";
 
+        const changeName = (arr) => {
+            let oldName = name;
+            console.log(`changing to: ${arr[1]}`)
+            name = arr[1];
+            systemMsg(`${oldName} changed there name to ${name}`);
+            $('#msgBox').val('');
+        }
+
         const runCommand = (command) => {
             let commandArray = command.split(" ");
             
             switch(commandArray[0]){
                 case "!cname":
-                    let oldName = name;
-                    console.log(`changing to: ${commandArray[1]}`)
-                    name = commandArray[1];
-                    systemMsg(`${oldName} changed there name to ${name}`);
-                    $('#msgBox').val('');
+                    changeName(commandArray);
                     return true;
                 default:
                     return false;
             }
         }
+
 
         const systemMsg = (text) => {
             
