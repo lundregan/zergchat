@@ -2,6 +2,10 @@ const app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+var chatHistory = [
+
+]
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
@@ -12,10 +16,9 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('User Disconnected');
     });
-});
 
-io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
+    
       console.log(`${msg.name} : ${msg.msg}`);
       io.emit('chat message', msg);
     });
