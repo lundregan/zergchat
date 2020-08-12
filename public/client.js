@@ -29,7 +29,7 @@ $(function () {
     const updateChatHistory = (history) => {
         for(var i = 0; i < history.length; i++){
             let content = `${history[i].name}: ${history[i].msg}`;
-            $('#listMessages').append($('<li>').text(content));
+            $('#listMessages').append($('<li class="list-group-item">').text(content));
         }
     }
 
@@ -59,7 +59,7 @@ $(function () {
 
     socket.on('chat message', function(msg){
         let content = `${msg.name}: ${msg.msg}`;
-        $('#listMessages').append($('<li>').text(content));
+        $('#listMessages').append($('<li class="list-group-item">').text(content));
     });
 
     socket.on('update chat history', (chatHistory) => {
