@@ -11,7 +11,7 @@ $(function () {
         console.log(`changing to: ${arr[1]}`)
         name = arr[1];
         systemMsg(`${oldName} changed there name to ${name}`);
-        $('#msgBox').val('');
+        $('#inputMessage').val('');
     }
 
     const runCommand = (command) => {
@@ -29,7 +29,7 @@ $(function () {
     const updateChatHistory = (history) => {
         for(var i = 0; i < history.length; i++){
             let content = `${history[i].name}: ${history[i].msg}`;
-            $('#msgList').append($('<li>').text(content));
+            $('#listMessages').append($('<li class="list-group-item">').text(content));
         }
     }
 
@@ -42,16 +42,16 @@ $(function () {
     }
 
     $('form').submit(function(e){
-        msg = $('#msgBox').val();
+        msg = $('#inputMessage').val();
         
         e.preventDefault(); // prevents page reloading
         
         if(!runCommand(msg)){
             socket.emit('chat message', {
                 name: name,
-                msg: $('#msgBox').val()
+                msg: $('#inputMessage').val()
             });
-            $('#msgBox').val('');
+            $('#inputMessage').val('');
         }
         
         return false;
@@ -59,7 +59,7 @@ $(function () {
 
     socket.on('chat message', function(msg){
         let content = `${msg.name}: ${msg.msg}`;
-        $('#msgList').append($('<li>').text(content));
+        $('#listMessages').append($('<li class="list-group-item">').text(content));
     });
 
     socket.on('update chat history', (chatHistory) => {
