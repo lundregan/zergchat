@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
 
+app.get('/chat', (req, res) => {
+    res.sendFile(__dirname + '/chat.html');
+})
+
 io.on('connection', (socket) => {
     socket.emit('update chat history', chatHistory);
 
