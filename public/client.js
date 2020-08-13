@@ -12,6 +12,9 @@ $(function () {
         name = arr[1];
         systemMsg(`${oldName} changed there name to ${name}`);
         $('#inputMessage').val('');
+        // $('#labelName').val(name);
+        let labelName = document.getElementById("labelName");
+        labelName.innerHTML = `${name}`;
     }
 
     const runCommand = (command) => {
