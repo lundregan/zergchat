@@ -18,10 +18,11 @@ $(function () {
     var user = getParams();
     var socket = io();
 
+    socket.emit('change room', user.room);
+
     let labelName = document.getElementById("labelName");
     let name = user.name;
     labelName.innerHTML = name;
-
 
     var msg = "";
 
@@ -71,6 +72,7 @@ $(function () {
         if(!runCommand(msg)){
             socket.emit('chat message', {
                 name: name,
+                room: user.room,
                 msg: $('#inputMessage').val()
             });
             $('#inputMessage').val('');

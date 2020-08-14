@@ -34,12 +34,17 @@ io.on('connection', (socket) => {
     });
 
     socket.on('chat message', (msg) => {
-    
-      console.log(`${msg.name} : ${msg.msg}`);
+      console.log(`${msg.room} | ${msg.name} : ${msg.msg}`);
     
         updateChatHistory(msg);
 
-      io.emit('chat message', msg);
+        io.to(msg.room).emit('chat message', msg);
+        //io.emit('chat message', msg);
+    });
+
+    socket.on('change room', (room) => {
+        console.log(`${socket.id} changing room to ${room}`)
+        socket.join(room);
     });
 });
 
