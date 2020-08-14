@@ -22,22 +22,25 @@
     >
 </head>
 
-<script>
-    $(function() {
-        // Do Stuff
-    });
-</script>
-
 <body>
     <ul id="listMessages" class="list-group">
     </ul>
 
-    <form class="" style="padding: 8px;" action="chat">        
-        <label for="name" class="form-label">Username:</label>
-        <input class="form-control" type="name" id="name" name="name" required>
-        <label for="room" class="form-label">Room:</label>
-        <input class="form-control" type="room" id="room" name="room" required>
-        <button class="btn btn-primary" type="submit">Join Chat</button>
+    <form class="fixed-bottom" style="padding: 8px;">
+        <label id="labelName" for="inputMessage" class="form-label">Unknown</label>
+        <div class="row">
+            <div class="col-md-11 col-sm-12">          
+                <input 
+                    id="inputMessage"    
+                    class="form-control"
+                    type="text"
+                    placeholder="lorem ipsum decartica right of man"
+                />
+            </div>
+            <div class="col-md-1 col-sm-2">
+                <button type="button" class="btn btn-primary float-right">Send</button>
+            </div>
+        </div>
     </form>
 
     <!-- SCRIPTS -->
@@ -52,5 +55,7 @@
         integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"
     ></script>
+
+    <script src="client.js"></script>
 </body>
 </html>

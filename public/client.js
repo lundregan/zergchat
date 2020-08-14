@@ -1,10 +1,32 @@
 console.log("Script loaded");
 
 $(function () {
+    const getParams = () => {
+        let urlString = window.location.href;
+        let paramsStr = urlString.split("?")[1];
+        let paramsArr = paramsStr.split("&");
+
+        let name = paramsArr[0].split("=")[1];
+        let room = paramsArr[1].split("=")[1];
+
+        return {
+            name: name,
+            room: room
+        }
+    }
+
+    var user = getParams();
     var socket = io();
 
-    let name = 'unknown';
+    socket.emit('change room', user.room);
+
+    let labelName = document.getElementById("labelName");
+    let name = user.name;
+    labelName.innerHTML = name;
+
     var msg = "";
+
+    socket.emit('request chat history update', user.room);
 
     const changeName = (arr) => {
         let oldName = name;
@@ -13,7 +35,7 @@ $(function () {
         systemMsg(`${oldName} changed there name to ${name}`);
         $('#inputMessage').val('');
         // $('#labelName').val(name);
-        let labelName = document.getElementById("labelName");
+        
         labelName.innerHTML = `${name}`;
     }
 
@@ -52,6 +74,7 @@ $(function () {
         if(!runCommand(msg)){
             socket.emit('chat message', {
                 name: name,
+                room: user.room,
                 msg: $('#inputMessage').val()
             });
             $('#inputMessage').val('');
