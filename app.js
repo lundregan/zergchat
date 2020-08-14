@@ -3,6 +3,11 @@ const app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+const updateChatHistory = (room, msg) => {
+    rooms[room].chatHistory.push(msg);
+    rooms[room].chatHistory.push({name: msg.name, msg: msg.msg})
+}
+
 var chatHistory = [
     {
         name: "System",
@@ -22,13 +27,9 @@ var rooms = {
     }
 }
 
-const updateChatHistory = (room, msg) => {
-    rooms[room].chatHistory.push(msg);
-    rooms[room].chatHistory.push({name: msg.name, msg: msg.msg})
-}
-
 app.use(express.static('public'));
 
+// Routes
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
@@ -37,9 +38,8 @@ app.get('/chat', (req, res) => {
     res.sendFile(__dirname + '/chat.html');
 })
 
+// Soceket Functionality
 io.on('connection', (socket) => {
-    // socket.emit('update chat history', chatHistory);
-
     console.log('A user connected');
 
     socket.on('disconnect', () => {
@@ -60,7 +60,6 @@ io.on('connection', (socket) => {
         updateChatHistory(msg.room, msg);
 
         io.to(msg.room).emit('chat message', msg);
-        //io.emit('chat message', msg);
     });
 
     socket.on('change room', (room) => {
@@ -84,6 +83,7 @@ io.on('connection', (socket) => {
     });
 });
 
+// Listen on port
 http.listen(process.env.PORT || 3000, () => {
     console.log('Listening on Port 3000')
 });
