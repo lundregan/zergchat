@@ -26,6 +26,8 @@ $(function () {
 
     var msg = "";
 
+    socket.emit('request chat history update', user.room);
+
     const changeName = (arr) => {
         let oldName = name;
         console.log(`changing to: ${arr[1]}`)
