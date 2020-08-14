@@ -3,12 +3,8 @@ console.log("Script loaded");
 $(function () {
     const getParams = () => {
         let urlString = window.location.href;
-
-        console.log(`url = ${urlString}`);
         let paramsStr = urlString.split("?")[1];
-        console.log(`paramsStr = ${paramsStr}`);
         let paramsArr = paramsStr.split("&");
-        console.log(paramsArr);
 
         let name = paramsArr[0].split("=")[1];
         let room = paramsArr[1].split("=")[1];
@@ -20,11 +16,13 @@ $(function () {
     }
 
     var user = getParams();
-    console.log(user);
-
     var socket = io();
 
-    let name = 'unknown';
+    let labelName = document.getElementById("labelName");
+    let name = user.name;
+    labelName.innerHTML = name;
+
+
     var msg = "";
 
     const changeName = (arr) => {
@@ -34,7 +32,7 @@ $(function () {
         systemMsg(`${oldName} changed there name to ${name}`);
         $('#inputMessage').val('');
         // $('#labelName').val(name);
-        let labelName = document.getElementById("labelName");
+        
         labelName.innerHTML = `${name}`;
     }
 
