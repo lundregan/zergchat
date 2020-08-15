@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
     
     <!--Bootstrap 5-->
     <link 
@@ -24,16 +24,17 @@
 </script>
 
 <body>
-    <ul id="listMessages" class="list-group">
-    </ul>
-
-    <form class="" style="padding: 8px;" action="chat">        
-        <label for="name" class="form-label">Username:</label>
-        <input class="form-control" type="name" id="name" name="name" required>
-        <label for="room" class="form-label">Room:</label>
-        <input class="form-control" type="room" id="room" name="room" required>
-        <button class="btn btn-primary" type="submit">Join Chat</button>
-    </form>
+    <div id="cardLogin" class="card mx-auto">
+        <form class="" action="chat">        
+            <label for="name" class="form-label">Username:</label>
+            <input class="form-control" type="name" id="name" name="name" required>
+            <label for="room" class="form-label">Room:</label><br />
+            <div class="d-flex justify-content-between">
+                <input class="form-control w-50" type="room" id="room" name="room" required>
+                <button class="btn btn-primary" type="submit">Join Chat</button>
+            </div>
+        </form>
+    </div>
 
     <!-- SCRIPTS -->
     

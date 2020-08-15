@@ -1,0 +1,11 @@
+#cardLogin {
+    margin-top: 40vh;
+    
+    min-width: 200px;
+    width:600px;
+    max-width: 90vw;
+}
+
+form {
+    padding: 12px;
+}
