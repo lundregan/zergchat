@@ -81,7 +81,7 @@ $(function () {
     });
 
     // Socket Recieving calls
-    socket.on('chat message', function(msg){
+    socket.on('client chat message', function(msg){
         let content = `${msg.name}: ${msg.msg}`;
         $('#listMessages').append($('<li class="list-group-item">').text(content));
     });

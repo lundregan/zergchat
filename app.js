@@ -4,8 +4,9 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 const updateChatHistory = (room, msg) => {
-    rooms[room].chatHistory.push(msg);
     rooms[room].chatHistory.push({name: msg.name, msg: msg.msg})
+
+    console.log(rooms[room].chatHistory);
 }
 
 var chatHistory = [
@@ -59,7 +60,7 @@ io.on('connection', (socket) => {
     
         updateChatHistory(msg.room, msg);
 
-        io.to(msg.room).emit('chat message', msg);
+        io.to(msg.room).emit('client chat message', msg);
     });
 
     socket.on('change room', (room) => {
@@ -76,7 +77,9 @@ io.on('connection', (socket) => {
                 ]
             }
 
-            socket.emit('update chat history', rooms[room].chatHistory);
+            // ADD
+            // Send request to client telling them to wipe history and send correct room history
+            // But really I shouldnt do that and this should be called new chat history
         }
 
         socket.join(room);
