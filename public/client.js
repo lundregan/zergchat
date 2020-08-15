@@ -5,6 +5,11 @@ $(function () {
 
     const getUrlParams = () => {
         let urlString = window.location.href;
+
+        // Replace + in url with spaces
+        let regex = /\+/g;
+        urlString = urlString.replace(regex, " ");
+
         let paramsStr = urlString.split("?")[1];
         let paramsArr = paramsStr.split("&");
 
