@@ -23,11 +23,11 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 })
 
 app.get('/chat', (req, res) => {
-    res.sendFile(__dirname + '/chat.html');
+    res.sendFile(__dirname + '/public/chat.html');
 })
 
 // Soceket Functionality
