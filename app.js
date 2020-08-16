@@ -17,15 +17,6 @@ var chatHistory = [
 ]
 
 var rooms = {
-    klma: {
-        name: "klma",
-        chatHistory: [
-            {
-                name: "System",
-                msg: "Welcome to zhcat | Room - klma"
-            }
-        ]
-    }
 }
 
 app.use(express.static('public'));
@@ -72,7 +63,7 @@ io.on('connection', (socket) => {
                 chatHistory: [
                     {
                         name: "System",
-                        msg: "Test add chat history"
+                        msg: `Welcome to zhcat | Room - ${room}`
                     }
                 ]
             }
