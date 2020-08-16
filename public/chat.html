@@ -23,25 +23,31 @@
 </head>
 
 <body>
-    <ul id="listMessages" class="list-group" style="margin-bottom: 75px;">
-    </ul>
-
-    <form class="fixed-bottom" style="padding: 8px;">
-        <label id="labelName" for="inputMessage" class="text-primary form-label font-weight-bold">Unknown</label>
+    <div class="container">
         <div class="row">
-            <div class="col-md-11 col-sm-12">          
-                <input 
-                    id="inputMessage"    
-                    class="form-control bs-min"
-                    type="text"
-                    placeholder="lorem ipsum decartica right of man"
-                />
-            </div>
-            <div class="col-md-1 col-sm-2">
-                <button type="button" class="btn btn-primary float-right bs">Send</button>
-            </div>
+            <ul id="listMessages" class="list-group" style="margin-bottom: 75px;">
+            </ul>
         </div>
-    </form>
+
+        <div class="row">
+            <form id="input" class="fixed-bottom" style="padding: 8px;">
+                <label id="labelName" for="inputMessage" class="text-primary form-label font-weight-bold">Unknown</label>
+                <div class="row">
+                    <div class="col-md-11 col-sm-12">          
+                        <input 
+                            id="inputMessage"    
+                            class="form-control bs-min"
+                            type="text"
+                            placeholder="lorem ipsum decartica right of man"
+                        />
+                    </div>
+                    <div class="col-md-1 col-sm-2">
+                        <button type="button" class="btn btn-primary float-right bs">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- SCRIPTS -->
     <!-- Bootstrap JS. Popper then bootstrap js -->
