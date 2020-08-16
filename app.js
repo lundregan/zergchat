@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
                 chatHistory: [
                     {
                         name: "System",
-                        msg: `Welcome to zhcat | Room - ${room}`
+                        msg: `Welcome to zChat | Room - ${room}`
                     }
                 ]
             }
