@@ -28,7 +28,7 @@ $(function () {
     labelName.innerHTML = name;
 
     var socket = io();
-    socket.emit('change room', user.room);
+    socket.emit('change room', user.room, name);
 
     socket.emit('request chat history update', user.room);
 
@@ -93,5 +93,14 @@ $(function () {
 
     socket.on('update chat history', (chatHistory) => {
         updateChatHistory(chatHistory);
+    });
+
+    socket.on('user joined', (name) => {
+        //alert(`${name} joined your chatroom`);
+        let usersList = document.getElementById("listUsers");
+        let newListItem = document.createElement("li");
+        newListItem.appendChild(document.createTextNode(`${name}`));
+        usersList.appendChild(newListItem);
+        //usersList.append(`<li class='list-group-item'>${name}</li>`);
     });
 });

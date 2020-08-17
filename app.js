@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
         io.to(msg.room).emit('client chat message', msg);
     });
 
-    socket.on('change room', (room) => {
+    socket.on('change room', (room, name) => {
         console.log(`${socket.id} changing room to ${room}`)
 
         if(!rooms[room]){
@@ -65,6 +65,12 @@ io.on('connection', (socket) => {
                         name: "System",
                         msg: `Welcome to zChat | Room - ${room}`
                     }
+                ],
+                users: [
+                    {
+                        id: socket.id,
+                        name: name
+                    }
                 ]
             }
 
@@ -74,6 +80,7 @@ io.on('connection', (socket) => {
         }
 
         socket.join(room);
+        socket.to(room).emit("user joined", name);
     });
 });
 
