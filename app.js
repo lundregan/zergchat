@@ -46,6 +46,11 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('request users', (room) => {
+        console.log("getting users forya");
+        socket.emit('update users', rooms[room].users);
+    })
+
     socket.on('chat message', (msg) => {
       console.log(`${msg.room} | ${msg.name} : ${msg.msg}`);
     
@@ -67,10 +72,6 @@ io.on('connection', (socket) => {
                     }
                 ],
                 users: [
-                    {
-                        id: socket.id,
-                        name: name
-                    }
                 ]
             }
 
@@ -80,6 +81,12 @@ io.on('connection', (socket) => {
         }
 
         socket.join(room);
+        
+        rooms[room].users.push({
+            id: socket.id,
+            name: name
+        });
+
         socket.to(room).emit("user joined", name);
     });
 });

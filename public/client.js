@@ -31,6 +31,7 @@ $(function () {
     socket.emit('change room', user.room, name);
 
     socket.emit('request chat history update', user.room);
+    socket.emit('request users', user.room);
 
     const changeName = (arr) => {
         let oldName = name;
@@ -95,12 +96,26 @@ $(function () {
         updateChatHistory(chatHistory);
     });
 
-    socket.on('user joined', (name) => {
-        //alert(`${name} joined your chatroom`);
+    const addUserToList = (name) => {
         let usersList = document.getElementById("listUsers");
         let newListItem = document.createElement("li");
         newListItem.appendChild(document.createTextNode(`${name}`));
         usersList.appendChild(newListItem);
+    }
+
+    socket.on('user joined', (name) => {
+        //alert(`${name} joined your chatroom`);
+        // let usersList = document.getElementById("listUsers");
+        // let newListItem = document.createElement("li");
+        // newListItem.appendChild(document.createTextNode(`${name}`));
+        // usersList.appendChild(newListItem);
+        addUserToList(name);
         //usersList.append(`<li class='list-group-item'>${name}</li>`);
+    });
+
+    socket.on('update users', (users) => {
+        for(let i = 0; i < users.length; i++){
+            addUserToList(users[i].name)
+        }
     });
 });
