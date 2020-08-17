@@ -47,7 +47,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('request users', (room) => {
-        console.log("getting users forya");
         socket.emit('update users', rooms[room].users);
     })
 

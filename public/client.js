@@ -99,18 +99,13 @@ $(function () {
     const addUserToList = (name) => {
         let usersList = document.getElementById("listUsers");
         let newListItem = document.createElement("li");
+        newListItem.classList.add("list-group-item");
         newListItem.appendChild(document.createTextNode(`${name}`));
         usersList.appendChild(newListItem);
     }
 
     socket.on('user joined', (name) => {
-        //alert(`${name} joined your chatroom`);
-        // let usersList = document.getElementById("listUsers");
-        // let newListItem = document.createElement("li");
-        // newListItem.appendChild(document.createTextNode(`${name}`));
-        // usersList.appendChild(newListItem);
         addUserToList(name);
-        //usersList.append(`<li class='list-group-item'>${name}</li>`);
     });
 
     socket.on('update users', (users) => {
